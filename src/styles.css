@@ -1,1 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
+.padding{
+    padding-bottom: 50px;
+    }
+    .content{
+        margin: auto;
+        width: 98%;
+    }
+    thead th {
+        background-color: #8a9196;
+        color: white;
+        cursor: pointer;
+    }
+    
+    

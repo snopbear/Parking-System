@@ -1,0 +1,157 @@
+<div class="content">
+  <div class="row">
+      <div class="col-md-12">
+          <div class="card">           
+              <div class="card-body">
+                  <div class="toolbar">
+                      <!-- Here you can write extra buttons/actions for the toolbar -->
+                      <div class="row">
+                          <div class="col-sm-8 padding">
+                              <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#responsive-modal"
+                                  (click)="showadd();reset(categoryForm)">
+                                  <i class="fa fa-plus"></i> Add Room
+                              </button>
+                          </div>
+                        
+                      </div>
+                  </div>
+
+                  <!-- Start Content -->
+                  <table class="table" cellspacing="0">
+                      <thead class="thead-light">
+                          <tr>
+                              <th  (click)="sort('id')"> Id<i class="fa fa-sort "></i></th>
+                              <th  (click)="sort('name')">Name <i class="fa fa-sort"></i></th>
+                              <th  (click)="sort('status')"> Status<i class="fa fa-sort"></i></th>
+                              <th></th>
+                          </tr>
+                      </thead>
+                      <tbody>
+
+                          <tr *ngFor="let category of categories trackBy:trackby.category;">
+                              <td>{{ category.id }}</td>
+                              <td>{{ category.name }}</td>
+                              <td *ngIf="category.status == 0"><span class="text-info">In Active</span></td>
+                              <td *ngIf="category.status == 1"><span class="text-info">Active</span></td>
+                              
+                              <td>
+                                  <button type="button" class="btn btn-warning btn-link btn-icon btn-sm edit"
+                                      data-toggle="modal" data-target="#responsive-modal" (click)="editshow(category)">
+                                      <i class="fa fa-edit"></i>
+                                  </button>
+                                  &nbsp;
+                                  <button type="button" class="btn btn-danger btn-link btn-icon btn-sm remove"
+                                      data-toggle="tooltip" data-original-title="Delete" (click)="delete(category)">
+                                      <i class="fa fa-times"></i>
+                                  </button>
+                              </td>
+                          </tr>
+                      </tbody>
+                    
+                  </table>
+             
+                      <div class="row">
+                          <div class="col-sm-12 text-info">
+                              TotalRecords : <span> {{ totalRecords }}</span>
+                          </div>
+
+                          <div class="col-sm-12">
+                              <!-- <pagination class="pagination float-right" [totalItems]="totalRecords" [pageSize]="pageSize"
+                                  (pageChanged)="pageChanged($event)"></pagination> -->
+                          </div>
+                      </div>
+                
+                  <!--
+                ==============================================================
+              -->
+                  <!-- ===========================Modal============================ -->
+                  <!--
+                ==============================================================
+              -->
+
+
+
+                  <!-- Classic Modal -->
+                  <div class="modal fade" id="responsive-modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+                      aria-hidden="true" data-backdrop="static">
+                      <div class="modal-dialog">
+                          <div class="modal-content">
+                              <div class="modal-header justify-content-center">
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <i class="nc-icon nc-simple-remove"></i>
+                                  </button>
+                                  <h4 class="title title-up" *ngIf="editMode">Add </h4>
+                                  <h4 class="title title-up" *ngIf="!editMode">Edit </h4>
+                              </div>
+                              <form #categoryForm="ngForm" >
+                                  <div class="modal-body">
+                                      <div class="container">
+                                          <div class="row">
+                                              <div class="form-group col-sm" [class.has-error]="name.invalid && name.touched"
+                                                  [class.has-success]="name.valid">
+                                                  <label for="name" class="control-label ">Name</label>
+                                                  <input 
+                                                  OnlyNumber="true"
+                                                  autocomplete="off"
+                                                  type="text" class="form-control" name="name"
+                                                      [(ngModel)]="category.name" #name="ngModel" required />
+                                                 
+                                              </div>
+                                          </div>
+
+
+                                          <div class="row">
+
+
+                                            <div class="form-group col-sm">
+
+                                                  <select class="form-control" name="status" [(ngModel)]="category.status">
+                                                    <option [value]="1" [selected]="category.status ==1">Active</option>
+                                                    <option [value]="0" [selected]="category.status ==0">In Active</option>
+                                                 </select>
+                            
+                                            </div>
+
+                                          </div>
+
+
+
+                                      </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                      <div class="left-side">
+                                          <button type="button" class="btn btn-default " data-dismiss="modal">
+                                                Close
+                                          </button>
+                                      </div>
+                                      <div class="divider"></div>
+                                      <div class="right-side">
+                                          <button *ngIf="editMode" type="button" class="btn btn-success"
+                                              data-dismiss="modal" [disabled]="categoryForm.invalid" (click)="add(categoryForm)">
+                                               Save
+                                          </button>
+
+                                          <button *ngIf="!editMode" type="button" class="btn btn-success "
+                                              data-dismiss="modal" [disabled]="categoryForm.invalid" (click)="edit(category)">
+                                             Save
+                                          </button>
+                                      </div>
+                                  </div>
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+                  <!-- End Modal -->
+
+        
+
+                  <!-- End Content -->
+              </div>
+              <!-- end content -->
+          </div>
+          <!-- end card -->
+      </div>
+      <!-- end col-md-12 -->
+  </div>
+  <!-- end row -->
+</div>
